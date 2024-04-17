@@ -10,7 +10,26 @@ public class PlayerCombat : MonoBehaviour
     // Dodge: WIP
     // Unblockable: Breaks the block of the enemy if hit.
 
+
+    // Attack phase:
+    // 1. Check if player is in combat mode
+    // 2. Check if player can attack
+    // 3. Check if player is attacking
+    // 4. Set attacking to true
+    // 5. Set can attack to false
+    // 6. Drain stamina
+    // 7. Check if enemy is blocking
+    // 7.1 If enemy is blocking, drain stamina
+    // 8. Check if enemy is attacking (parry)
+    // 8.1 Return function
+    // 9. Check if player is dead
+    // 9.1 If player is dead, return function
+    // 10. Wait for 1 second
+    // 11. Set attacking to false
+    // 12. Set can attack to true
+    
     public bool combatMode = false;
+    public EnemyCombat enemyCombatTarget;
 
     [Header("Script References")]
     public PlayerMovement playerMovement;
@@ -21,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
     public int playerHealth = 100;
 
     [Header("Player Stamina")]
-    public int playerStamina = 100;
+    public float playerStamina = 100f;
 
     [Header("Current State")]
     public string currentState;
@@ -29,10 +48,11 @@ public class PlayerCombat : MonoBehaviour
     [Header("Attack Variables")]
     public bool canAttack;
     public bool isAttacking;
+    public bool isPerfectParry;
     public float attackDamage = 10f;
     public float attackRange = 0.5f;
     public float attackRate = 2f;
-
+    public float attackStamina = 12f;
 
 
     // Start is called before the first frame update
@@ -40,6 +60,7 @@ public class PlayerCombat : MonoBehaviour
     {
         
     }
+
 
     // Update is called once per frame
     void Update()
@@ -93,8 +114,8 @@ public class PlayerCombat : MonoBehaviour
             // Player is knocked out
             isDead = true;
         }
-        // Update attack speed based on stamina
-        attackRate = playerStamina / 100;
+        // Update attack speed based on stamina (if player has 100 stamina, attack rate is 2 seconds, if player has 50 stamina, attack rate is 1 second, etc.
+        attackRate = 2f - (playerStamina / 100);
     }
 
 
@@ -124,11 +145,34 @@ public class PlayerCombat : MonoBehaviour
         StartCoroutine(AttackRoutine());
     }
     
+
+
+
     IEnumerator AttackRoutine() {
         // Set attacking to true
         isAttacking = true;
         // Set can attack to false
         canAttack = false;
+        // Drain stamina
+        playerStamina -= attackStamina;
+        // Check if enemy is blocking
+        if (enemyCombatTarget.isBlocking)
+        {
+            // Drain stamina
+            enemyCombatTarget.enemyStamina -= attackDamage;
+        }
+        // Check if enemy is attacking (parry)
+        if (enemyCombatTarget.isAttacking && isPerfectParry)
+        {
+            // Return function
+            yield break;
+        }
+        // Check if player is dead
+        if (isDead)
+        {
+            // Return function
+            yield break;
+        }
         // Wait for 1 second
         yield return new WaitForSeconds(1);
         // Set attacking to false
@@ -136,4 +180,22 @@ public class PlayerCombat : MonoBehaviour
         // Set can attack to true
         canAttack = true;
     }
+
+    // Attack phase:
+    // 1. Check if player is in combat mode
+    // 2. Check if player can attack
+    // 3. Check if player is attacking
+    // 4. Set attacking to true
+    // 5. Set can attack to false
+    // 6. Drain stamina
+    // DONE ^
+    // 7. Check if enemy is blocking 
+    // 7.1 If enemy is blocking, drain stamina
+    // 8. Check if enemy is attacking (parry)
+    // 8.1 Return function
+    // 9. Check if player is dead
+    // 9.1 If player is dead, return function
+    // 10. Wait for 1 second
+    // 11. Set attacking to false
+    // 12. Set can attack to true
 }
