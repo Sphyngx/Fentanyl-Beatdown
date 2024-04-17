@@ -27,6 +27,7 @@ public class PlayerCombat : MonoBehaviour
     // 10. Wait for 1 second
     // 11. Set attacking to false
     // 12. Set can attack to true
+
     
     public bool combatMode = false;
     public EnemyCombat enemyCombatTarget;
@@ -41,6 +42,8 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Player Stamina")]
     public float playerStamina = 100f;
+    public bool canRegenStamina = true;
+    public float staminaRegenRate = 5f;
 
     [Header("Current State")]
     public string currentState;
@@ -52,13 +55,21 @@ public class PlayerCombat : MonoBehaviour
     public float attackDamage = 10f;
     public float attackRange = 0.5f;
     public float attackRate = 2f;
+    private float attackRateCopy;
     public float attackStamina = 12f;
+
+    [Header("Block Variables")]
+    public bool canBlock;
+    public bool isBlocking;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        attackRateCopy = attackRate;
+
+        // Kick start the stamina regen
+        StartCoroutine(RegenStamina());
     }
 
 
@@ -85,7 +96,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void TakeDamage(int damage) {
         // Cannot attack until a block is done
-        canAttack = false;
+        //canAttack = false;
 
         // Subtract damage from player health
         playerHealth -= damage;
@@ -103,6 +114,19 @@ public class PlayerCombat : MonoBehaviour
         Debug.Log("Took " + damage + " damage");
     }
 
+    IEnumerator RegenStamina() {
+        while (!isDead)
+        {
+            if (canRegenStamina)
+            {
+                // Regen stamina
+                playerStamina += staminaRegenRate;
+                // Wait for 1 second
+                yield return new WaitForSeconds(1);
+            }
+        }
+    }
+
     void UpdateStamina() {
         if (playerStamina > 100)
         {
@@ -115,7 +139,7 @@ public class PlayerCombat : MonoBehaviour
             isDead = true;
         }
         // Update attack speed based on stamina (if player has 100 stamina, attack rate is 2 seconds, if player has 50 stamina, attack rate is 1 second, etc.
-        attackRate = 2f - (playerStamina / 100);
+        attackRate = attackRateCopy - (playerStamina / 100);
     }
 
 
@@ -167,12 +191,13 @@ public class PlayerCombat : MonoBehaviour
             // Return function
             yield break;
         }
-        // Check if player is dead
-        if (isDead)
+        // Check if player or enemy is dead
+        if (isDead || enemyCombatTarget.isDead)
         {
             // Return function
             yield break;
         }
+        enemyCombatTarget.TakeDamage((int)attackDamage);
         // Wait for 1 second
         yield return new WaitForSeconds(1);
         // Set attacking to false

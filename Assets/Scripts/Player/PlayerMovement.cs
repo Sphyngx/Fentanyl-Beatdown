@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+
+        
         if (Input.GetKey(KeyCode.LeftShift))
         {
             sprint = true;

@@ -300,6 +300,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &332827650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332827648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250d471f7a2c45946a542a61395bc0c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCombatTarget: {fileID: 1542322603}
+  isDead: 0
+  enemyHealth: 100
+  enemyStamina: 100
+  canRegenStamina: 1
+  selectedAim: 0
+  reactionTime: 5
+  canAttack: 1
+  isAttacking: 0
+  isPerfectParry: 0
+  attackDamage: 10
+  attackRange: 0.5
+  attackRate: 2
+  attackStamina: 12
+  canBlock: 0
+  isBlocking: 0
 --- !u!1001 &572813281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -307,6 +335,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1108422780078596138, guid: 9abd56e86e1fdc344b6436a15afa851a, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 332827649}
     - target: {fileID: 1346971260498814014, guid: 9abd56e86e1fdc344b6436a15afa851a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -580,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2dff5d1c3cc5d4a9d15a4ab8eb0f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 
+  currentState: 0
   playerCombat: {fileID: 1542322603}
 --- !u!114 &1542322603
 MonoBehaviour:
@@ -594,15 +626,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566ae62f0f14bf54187aba37379966e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatMode: 0
+  combatMode: 1
+  enemyCombatTarget: {fileID: 332827650}
   playerMovement: {fileID: 1542322599}
   playerInput: {fileID: 1542322602}
   isDead: 0
   playerHealth: 100
   playerStamina: 100
+  canRegenStamina: 1
+  staminaRegenRate: 5
   currentState: 
   canAttack: 1
   isAttacking: 0
+  isPerfectParry: 0
   attackDamage: 10
   attackRange: 0.5
   attackRate: 2
+  attackStamina: 12
+  canBlock: 0
+  isBlocking: 0
