@@ -14,13 +14,9 @@ public class PlayerInput : MonoBehaviour
 {
     [Header("Selected State")]
     public string currentState;
-    
-    [Header("Attack")]
-    public bool isAttacking;
-    public bool canAttack;
-    
-    [Header("Block")]
-    public bool isBlocking;
+
+    [Header("Script References")]
+    public PlayerCombat playerCombat;
 
     
     void Start()
@@ -39,13 +35,22 @@ public class PlayerInput : MonoBehaviour
         {
             // Log
             Debug.Log("State: " + currentState);
+            // TOGGLE COMBAT MODE (WIP)
+            if (playerCombat.combatMode)
+            {
+                playerCombat.combatMode = false;
+            }
+            else if (!playerCombat.combatMode)
+            {
+                playerCombat.combatMode = true;
+            }
         }
         // If player presses mouse button 0 (Attack)
         if (Input.GetMouseButtonDown(0))
         {
             // Log
             Debug.Log("Pressed attack button");
-            Attack();
+            playerCombat.Attack();
         }
         // If player presses mouse button 1 (Block)
         if (Input.GetMouseButtonDown(1))
@@ -86,34 +91,4 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    void Attack() {
-        // If player is attacking
-        if (isAttacking)
-        {
-            // Log
-            Debug.Log("Already attacking");
-            return;
-        }
-        // If player can attack
-        if (!canAttack)
-        {
-            // Log
-            Debug.Log("Can't attack");
-            return;
-        }
-        StartCoroutine(AttackRoutine());
-    }
-
-    IEnumerator AttackRoutine() {
-        // Set attacking to true
-        isAttacking = true;
-        // Set can attack to false
-        canAttack = false;
-        // Wait for 1 second
-        yield return new WaitForSeconds(1);
-        // Set attacking to false
-        isAttacking = false;
-        // Set can attack to true
-        canAttack = true;
-    }
 }

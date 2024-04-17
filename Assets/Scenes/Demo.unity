@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7990924523734116728, guid: 3aa7aae33c4e70d4bafca5a98819c6fe, type: 3}
+      propertyPath: Sensetivity
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 7990924524038167377, guid: 3aa7aae33c4e70d4bafca5a98819c6fe, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -548,3 +552,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1542322598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7990924524038167382, guid: 3aa7aae33c4e70d4bafca5a98819c6fe, type: 3}
+  m_PrefabInstance: {fileID: 18640536}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1542322599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7990924524038167376, guid: 3aa7aae33c4e70d4bafca5a98819c6fe, type: 3}
+  m_PrefabInstance: {fileID: 18640536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542322598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2622545383c5c3439dab6bf8c70be22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1542322602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542322598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2dff5d1c3cc5d4a9d15a4ab8eb0f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 
+  playerCombat: {fileID: 1542322603}
+--- !u!114 &1542322603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542322598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566ae62f0f14bf54187aba37379966e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatMode: 0
+  playerMovement: {fileID: 1542322599}
+  playerInput: {fileID: 1542322602}
+  isDead: 0
+  playerHealth: 100
+  playerStamina: 100
+  currentState: 
+  canAttack: 1
+  isAttacking: 0
+  attackDamage: 10
+  attackRange: 0.5
+  attackRate: 2

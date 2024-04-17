@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool combatMode = false;
+
     float X = 0;
     float Z = 0;
     public int Speed = 6;
