@@ -79,12 +79,12 @@ public class PlayerCombat : MonoBehaviour
         if (combatMode)
         {
             // Change the state to combat mode on player movement
-            playerMovement.combatMode = true;
+            //playerMovement.combatMode = true;
         }
         else
         {
             // Change the state to non-combat mode on player movement
-            playerMovement.combatMode = false;
+            //playerMovement.combatMode = false;
         }
 
         // Update stamina calculations

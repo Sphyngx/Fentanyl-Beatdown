@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public bool combatMode = false;
-
     float X = 0;
     float Z = 0;
     public int Speed = 6;
@@ -19,8 +17,6 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-
-        
         if (Input.GetKey(KeyCode.LeftShift))
         {
             sprint = true;
@@ -42,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Speed -= 4;
         }
-        Vector3 Movement = transform.right * X + transform.forward * Z;
+        Vector3 Movement = transform.right * X + transform.forward * Z; 
         Controller.Move(Movement * Speed * Time.deltaTime);
     }
 }
