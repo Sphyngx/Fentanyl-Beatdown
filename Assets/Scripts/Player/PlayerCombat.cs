@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -28,9 +29,16 @@ public class PlayerCombat : MonoBehaviour
     // 11. Set attacking to false
     // 12. Set can attack to true
 
-    
+    public Transform playerEyes; // The transform representing the player's eyes or where they are looking
+    public LayerMask enemyLayer; // The layer containing the enemies
+    public float visionDistance = 10f; // The maximum distance the player can see
+    public float visionAngle = 45f; // The angle of the player's field of view
+    public float visionRadius = 10f;
+    Transform Enemy;
     public bool combatMode = false;
     public EnemyCombat enemyCombatTarget;
+    RaycastHit hit;
+    
 
     [Header("Script References")]
     public PlayerMovement playerMovement;
@@ -67,25 +75,53 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         attackRateCopy = attackRate;
+        
 
         // Kick start the stamina regen
         StartCoroutine(RegenStamina());
+        
     }
-
-
+    
     // Update is called once per frame
     void Update()
     {
         if (combatMode)
         {
             // Change the state to combat mode on player movement
-            //playerMovement.combatMode = true;
+            playerMovement.CombatSpeed = true;
         }
         else
         {
             // Change the state to non-combat mode on player movement
-            //playerMovement.combatMode = false;
+            playerMovement.CombatSpeed = false;
         }
+
+        Collider[] hitColliders = Physics.OverlapSphere(playerEyes.position, visionRadius, enemyLayer);
+        foreach (Collider collider in hitColliders)
+        {
+            // Check if the detected object is an enemy
+            if (IsEnemyInFieldOfView(collider.transform))
+            {
+                
+                RaycastHit hit2;
+                if (Physics.Raycast(transform.position, Enemy.transform.position - transform.position, out hit2))
+                {
+                    
+                    if (hit2.collider.CompareTag("Enemy"))
+                    {
+
+                        // Enter combat mode when an enemy is within the player's field of view
+                        CDetect();
+                        return; // Exit the loop early since we only need to detect one enemy
+                    }
+                    
+                }
+                
+            }
+        }
+        NoCDetect();
+        // If no enemies are in sight, exit combat mode
+        
 
         // Update stamina calculations
         UpdateStamina();
@@ -93,7 +129,38 @@ public class PlayerCombat : MonoBehaviour
 
         
     }
+    bool IsEnemyInFieldOfView(Transform enemyTransform)
+    {
+        Vector3 directionToEnemy = (enemyTransform.position - playerEyes.position).normalized;
+        float angleToEnemy = Vector3.Angle(playerEyes.forward, directionToEnemy);
 
+        // Check if the angle to the enemy is within the player's field of view
+        if (angleToEnemy <= visionAngle / 2f)
+        {
+            // Check if the enemy is within the maximum distance
+            RaycastHit hit;
+            if (Physics.Raycast(playerEyes.position, directionToEnemy, out hit, visionDistance, enemyLayer))
+            {
+                // If the enemy is within the vision cone and not obstructed by obstacles, return true
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    Enemy = hit.collider.gameObject.transform;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    public void CDetect()
+    {
+        combatMode = true;
+    }
+
+    public void NoCDetect()
+    {
+        combatMode = false;
+    }
     public void TakeDamage(int damage) {
         // Cannot attack until a block is done
         //canAttack = false;
@@ -168,9 +235,6 @@ public class PlayerCombat : MonoBehaviour
         }
         StartCoroutine(AttackRoutine());
     }
-    
-
-
 
     IEnumerator AttackRoutine() {
         // Set attacking to true
