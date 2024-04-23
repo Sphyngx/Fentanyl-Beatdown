@@ -124,7 +124,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7990924522925385221}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 2, z: 3.0018287}
@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 7990924524038167377}
   - component: {fileID: 7990924524038167379}
   - component: {fileID: 7990924524038167376}
+  - component: {fileID: 2053135072552817962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -293,5 +294,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2622545383c5c3439dab6bf8c70be22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playercombat: {fileID: 0}
   Speed: 10
   Controller: {fileID: 7990924524038167379}
+  CombatSpeed: 0
+--- !u!114 &2053135072552817962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990924524038167382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e3806208bf740845accee674c6ce5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 7990924523734116734}
+  ComputorScreen: {fileID: 0}

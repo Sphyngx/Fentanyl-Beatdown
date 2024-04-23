@@ -18,9 +18,10 @@ public class NavMeshAI : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(AI.transform.position, AI.transform.position - Player.transform.position, out hit))
+        if (Physics.Raycast(AI.transform.position, Player.transform.position - AI.transform.position, out hit))
         {
             
+            Agent.SetDestination(Player.transform.position);
         }
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Floor
   - UIManager
+  - Computor
   layers:
   - Default
   - TransparentFX
