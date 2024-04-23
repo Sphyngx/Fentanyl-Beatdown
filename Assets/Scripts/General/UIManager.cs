@@ -28,14 +28,20 @@ public class UIManager : MonoBehaviour
     // Aim state
     public void SetAimLeft() {
         aimLeft.GetComponent<Image>().color = Color.white;
+        aimMiddle.GetComponent<Image>().color = Color.gray;
+        aimRight.GetComponent<Image>().color = Color.gray;
     }
 
     public void SetAimMiddle() {
         aimMiddle.GetComponent<Image>().color = Color.white;
+        aimLeft.GetComponent<Image>().color = Color.gray;
+        aimRight.GetComponent<Image>().color = Color.gray;
     }
 
     public void SetAimRight() {
-        aimRight.GetComponent<Image>().color = Color.white;        
+        aimRight.GetComponent<Image>().color = Color.white;
+        aimLeft.GetComponent<Image>().color = Color.gray;
+        aimMiddle.GetComponent<Image>().color = Color.gray;        
     }
 
 

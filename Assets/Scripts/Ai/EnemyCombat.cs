@@ -143,7 +143,23 @@ public class EnemyCombat : MonoBehaviour
             Debug.Log(gameObject.name + ": Can't block");
             return;
         }
+        StartCoroutine(BlockRoutine());
+    }
+
+    IEnumerator BlockRoutine() {
+        // Set blocking to true
+        isBlocking = true;
+        // Set can block to false
+        canBlock = false;
+        // Drain stamina
+        enemyStamina -= attackStamina;
         Debug.Log(gameObject.name + ": Blocking");
+        // Wait for 0.5 second
+        yield return new WaitForSeconds(0.5f);
+        // Set blocking to false
+        isBlocking = false;
+        // Set can block to true
+        canBlock = true;
     }
 
     IEnumerator AttackRoutine() {
@@ -189,6 +205,8 @@ public class EnemyCombat : MonoBehaviour
             isAttacking = false;
             // Set can attack to true
             canAttack = true;
+            // Reset enemy ui
+            uiManager.ResetEnemyAim();
             // Return function
             yield break;
         }
@@ -203,6 +221,8 @@ public class EnemyCombat : MonoBehaviour
             isAttacking = false;
             // Set can attack to true
             canAttack = true;
+            // Reset enemy ui
+            uiManager.ResetEnemyAim();
             // Change UI
             if (selectedAim == AimState.Left)
             {
@@ -230,6 +250,8 @@ public class EnemyCombat : MonoBehaviour
             isAttacking = false;
             // Set can attack to true
             canAttack = true;
+            // Reset enemy ui
+            uiManager.ResetEnemyAim();
             // Return function
             yield break;
         }

@@ -254,12 +254,16 @@ public class PlayerCombat : MonoBehaviour
         // Check if enemy is attacking (parry)
         if (enemyCombatTarget.isAttacking && isPerfectParry)
         {
+            isAttacking = false;
+            canAttack = true;
             // Return function
             yield break;
         }
         // Check if player or enemy is dead
         if (isDead || enemyCombatTarget.isDead)
         {
+            isAttacking = false;
+            canAttack = true;
             // Return function
             yield break;
         }
