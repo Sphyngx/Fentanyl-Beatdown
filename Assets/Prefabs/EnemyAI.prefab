@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4861273603454974942}
   - component: {fileID: 898902085677140719}
   - component: {fileID: 1108422780078596138}
+  - component: {fileID: 5424349217694753634}
   m_Layer: 0
   m_Name: EnemyAI
   m_TagString: Untagged
@@ -134,4 +135,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27b52e058a5114e8497118e1f3ad11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CombatDetect: {fileID: 0}
+--- !u!114 &5424349217694753634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051644229050587321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4012af0e97ac0bb40b25f4d645b80814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
