@@ -12,6 +12,7 @@ public class EnemyCombat : MonoBehaviour
     }
 
     public PlayerCombat playerCombatTarget;
+    private UIManager uiManager;
 
     [Header("Enemy Health")]
     public bool isDead = false;
@@ -27,6 +28,7 @@ public class EnemyCombat : MonoBehaviour
     [Header("Reaction Time")]
     public float reactionTime = 0.3f;
     private int ms = 0;
+    public float parryPariod = 1.5f;
 
     [Header("Attack Variables")]
     public bool canAttack;
@@ -46,6 +48,9 @@ public class EnemyCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Find UIManager by searching for it in the scene with the tag
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
         attackRateCopy = attackRate;
     }
 
@@ -110,14 +115,14 @@ public class EnemyCombat : MonoBehaviour
         if (isAttacking)
         {
             // Log
-            Debug.Log("Already attacking");
+            Debug.Log(gameObject.name + ": Already attacking");
             return;
         }
         // If player can attack
         if (!canAttack)
         {
             // Log
-            Debug.Log("Can't attack");
+            Debug.Log(gameObject.name + ": Can't attack");
             return;
         }
         StartCoroutine(AttackRoutine());
@@ -128,17 +133,17 @@ public class EnemyCombat : MonoBehaviour
         if (isBlocking)
         {
             // Log
-            Debug.Log("Already blocking");
+            Debug.Log(gameObject.name + ": Already blocking");
             return;
         }
         // If player can attack
         if (!canBlock)
         {
             // Log
-            Debug.Log("Can't block");
+            Debug.Log(gameObject.name + ": Can't block");
             return;
         }
-        Debug.Log("Blocking");
+        Debug.Log(gameObject.name + ": Blocking");
     }
 
     IEnumerator AttackRoutine() {
@@ -151,12 +156,31 @@ public class EnemyCombat : MonoBehaviour
         // Set perfect parry to true
         isPerfectParry = true;
         // Wait for 0.5 second
-        yield return new WaitForSeconds(0.5f);
+        // Move to random aim state but not the same as the player
+        selectedAim = (AimState)Random.Range(0, 3);
+        while (selectedAim == (EnemyCombat.AimState)playerCombatTarget.playerInput.currentState) {
+            selectedAim = (AimState)Random.Range(0, 3);
+        }
+        // Change UI
+        if (selectedAim == AimState.Left)
+        {
+            uiManager.SetEnemyAttackLeft();
+        }
+        else if (selectedAim == AimState.Right)
+        {
+            uiManager.SetEnemyAttackRight();
+        }
+        else if (selectedAim == AimState.Middle)
+        {
+            uiManager.SetEnemyAttackMiddle();
+        }
+        // Wait for parryPariod second
+        yield return new WaitForSeconds(parryPariod);
         // Check if enemy is blocking
         if (playerCombatTarget.isBlocking)
         {
             // Log
-            Debug.Log("Player is blocking");
+            Debug.Log(gameObject.name + ": Player is blocking");
             // Drain stamina
             playerCombatTarget.playerStamina -= attackDamage;
             // Disable perfect parry
@@ -172,13 +196,26 @@ public class EnemyCombat : MonoBehaviour
         if (playerCombatTarget.isAttacking && isPerfectParry)
         {
             // Log
-            Debug.Log("Perfect parry");
+            Debug.Log(gameObject.name + ": Perfect parry");
             // Disable perfect parry
             isPerfectParry = false;
             // Set attacking to false
             isAttacking = false;
             // Set can attack to true
-            canAttack = true;    
+            canAttack = true;
+            // Change UI
+            if (selectedAim == AimState.Left)
+            {
+                uiManager.SetParryLeft();
+            }
+            else if (selectedAim == AimState.Right)
+            {
+                uiManager.SetParryRight();
+            }
+            else if (selectedAim == AimState.Middle)
+            {
+                uiManager.SetParryMiddle();
+            }
             // Return function
             yield break;
         }
@@ -186,7 +223,7 @@ public class EnemyCombat : MonoBehaviour
         if (isDead || playerCombatTarget.isDead)
         {
             // Log
-            Debug.Log("Player or enemy is dead");
+            Debug.Log(gameObject.name + ": Player or enemy is dead");
             // Disable perfect parry
             isPerfectParry = false;
             // Set attacking to false
@@ -196,22 +233,19 @@ public class EnemyCombat : MonoBehaviour
             // Return function
             yield break;
         }
-        // Move to random aim state but not the same as the player
-        selectedAim = (AimState)Random.Range(0, 3);
-        while (selectedAim == (EnemyCombat.AimState)playerCombatTarget.playerInput.currentState) {
-            selectedAim = (AimState)Random.Range(0, 3);
-        }
-        playerCombatTarget.TakeDamage((int)attackDamage);
-        // Debug
-        Debug.Log("Attacking on " + selectedAim + " aim state. (Damage: " + attackDamage + ")");
         // Set perfect parry to false
         isPerfectParry = false;
         // Wait for 1 second
         yield return new WaitForSeconds(1f);
+        playerCombatTarget.TakeDamage((int)attackDamage);
+        // Debug
+        Debug.Log(gameObject.name + ": Attacking on " + selectedAim + " aim state. (Damage: " + attackDamage + ")");
         // Set attacking to false
         isAttacking = false;
         // Set can attack to true
         canAttack = true;
+        // Reset enemy ui
+        uiManager.ResetEnemyAim();
     }
 
 }

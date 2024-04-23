@@ -17,10 +17,13 @@ public class PlayerInput : MonoBehaviour
 
     [Header("Script References")]
     public PlayerCombat playerCombat;
-
+    private UIManager uiManager;
     
     void Start()
     {
+        // Find UIManager by searching for it in the scene with the tag
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
         currentState = AimState.Middle; // Set the initial state
         // Lock the cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -55,6 +58,19 @@ public class PlayerInput : MonoBehaviour
         {
             // Log
             Debug.Log("Pressed block button");
+            // Block UI
+            if (currentState == AimState.Left)
+            {
+                uiManager.SetBlockLeft();
+            }
+            else if (currentState == AimState.Right)
+            {
+                uiManager.SetBlockRight();
+            }
+            else if (currentState == AimState.Middle)
+            {
+                uiManager.SetBlockMiddle();
+            }
         }
     }
     
@@ -76,16 +92,19 @@ public class PlayerInput : MonoBehaviour
         if (mouseY < 0)
         {
             currentState = AimState.Left;
+            uiManager.SetAimLeft();
         }
         // If mouse is moved right then change the state to right
         else if (mouseY > 0)
         {
             currentState = AimState.Right;
+            uiManager.SetAimRight();
         }
         // If mouse is moved up then change the state to middle
         else 
         {
             currentState = AimState.Middle;
+            uiManager.SetAimMiddle();
         }
     }
 

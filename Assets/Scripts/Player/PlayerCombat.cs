@@ -43,6 +43,7 @@ public class PlayerCombat : MonoBehaviour
     [Header("Script References")]
     public PlayerMovement playerMovement;
     public PlayerInput playerInput;
+    private UIManager uiManager;
 
     [Header("Player Health")]
     public bool isDead = false;
@@ -74,8 +75,10 @@ public class PlayerCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Find UIManager by searching for it in the scene with the tag
+        uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
+
         attackRateCopy = attackRate;
-        
 
         // Kick start the stamina regen
         StartCoroutine(RegenStamina());
@@ -109,7 +112,6 @@ public class PlayerCombat : MonoBehaviour
                     
                     if (hit2.collider.CompareTag("Enemy"))
                     {
-
                         // Enter combat mode when an enemy is within the player's field of view
                         CDetect();
                         return; // Exit the loop early since we only need to detect one enemy
@@ -126,8 +128,8 @@ public class PlayerCombat : MonoBehaviour
         // Update stamina calculations
         UpdateStamina();
 
-
-        
+        // Update the player's current state
+        currentState = playerInput.currentState.ToString();        
     }
     bool IsEnemyInFieldOfView(Transform enemyTransform)
     {
@@ -261,9 +263,26 @@ public class PlayerCombat : MonoBehaviour
             // Return function
             yield break;
         }
+        // Attack UI
+        if (playerInput.currentState == PlayerInput.AimState.Left)
+        {
+            uiManager.SetAttackLeft();
+        }
+        else if (playerInput.currentState == PlayerInput.AimState.Right)
+        {
+            uiManager.SetAttackRight();
+        }
+        else if (playerInput.currentState == PlayerInput.AimState.Middle)
+        {
+            uiManager.SetAttackMiddle();
+        }
+
+        // Deal damage to enemy
         enemyCombatTarget.TakeDamage((int)attackDamage);
         // Wait for 1 second
         yield return new WaitForSeconds(1);
+        // Reset UI
+        uiManager.ResetAim();
         // Set attacking to false
         isAttacking = false;
         // Set can attack to true
