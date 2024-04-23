@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NavMeshAI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private NavMeshAgent Agent;
+    private Transform AI;
+    private GameObject Player;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        Agent = GetComponent<NavMeshAgent>();
+        AI = GetComponent<Transform>();
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
     void Update()
     {
-        
+        RaycastHit hit;
+        if (Physics.Raycast(AI.transform.position, AI.transform.position - Player.transform.position, out hit))
+        {
+            
+        }
     }
 }
+
