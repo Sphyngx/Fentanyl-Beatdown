@@ -7,6 +7,7 @@ public class Interact : MonoBehaviour
     public Camera Camera;
     RaycastHit hit;
     public GameObject ComputorScreen;
+    bool computor = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +23,13 @@ public class Interact : MonoBehaviour
         {
             if (hit.collider.CompareTag("Computor"))
             {
+                computor = true;
                 ComputorScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.Confined;
             }
         }
+        
+        
     }
 }
 
