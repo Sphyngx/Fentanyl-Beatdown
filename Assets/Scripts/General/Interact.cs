@@ -20,23 +20,17 @@ public class Interact : MonoBehaviour
     void Update()
     {
         Ray ray = Camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 5) && Input.GetKeyDown("e"))
+        if (Physics.Raycast(ray, out hit, 5) && hit.collider.CompareTag("Computor"))
         {
-            if (hit.collider.CompareTag("Computor"))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 computor = true;
                 ComputorScreen.SetActive(true);
                 Cursor.lockState = CursorLockMode.Confined;
+                Movement = GetComponent<PlayerMovement>();
+                Movement.enabled = !Movement.enabled;
             }
         }
-
-        if (computor == true)
-        {
-            Movement = GetComponent<PlayerMovement>();
-            Movement.enabled = !Movement.enabled;
-        }
-        
-        
     }
 }
 
