@@ -7,8 +7,9 @@ public class Interact : MonoBehaviour
     public Camera Camera;
     RaycastHit hit;
     public GameObject ComputorScreen;
-    bool computor = false;
+    public bool computor = false;
     private PlayerMovement Movement;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,13 @@ public class Interact : MonoBehaviour
                 Movement = GetComponent<PlayerMovement>();
                 Movement.enabled = !Movement.enabled;
             }
+        }
+
+        if (!ComputorScreen.activeInHierarchy)
+        {
+            computor = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Movement.enabled = Movement.enabled;
         }
     }
 }
