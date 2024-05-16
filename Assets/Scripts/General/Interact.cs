@@ -37,7 +37,7 @@ public class Interact : MonoBehaviour
         {
             computor = false;
             Cursor.lockState = CursorLockMode.Locked;
-            Movement.enabled = Movement.enabled = true;
+            
         }
     }
 }
