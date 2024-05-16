@@ -1,26 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class OpenController : MonoBehaviour
 {
     public GameObject OpenGif;
+<<<<<<< HEAD
     public GameObject ComputorScreen;
     public string OpenName = string.Empty;
     public GameObject MailApp;
     public GameObject MRShadyApp;
     public GameObject SettingsApp;
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> parent of 01c6a40 (menu v2)
+>>>>>>> Stashed changes
 
     public void ButtonClicked()
     {
-        if (!OpenGif.activeInHierarchy && GameObject.FindGameObjectWithTag("Aplication"))
+        if (!OpenGif.activeInHierarchy)
         {
             OpenGif.SetActive(true);
-            OpenName = EventSystem.current.currentSelectedGameObject.name;
         }
     }
+<<<<<<< HEAD
 
     public void CloseComputorClicked()
     {
@@ -43,4 +47,6 @@ public class OpenController : MonoBehaviour
             SettingsApp.SetActive(true);
         }
     }
+=======
+>>>>>>> parent of 01c6a40 (menu v2)
 }
