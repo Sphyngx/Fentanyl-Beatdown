@@ -9,6 +9,9 @@ public class OpenController : MonoBehaviour
     public GameObject OpenGif;
     public GameObject ComputorScreen;
     public string OpenName = string.Empty;
+    public GameObject MailApp;
+    public GameObject MRShadyApp;
+    public GameObject SettingsApp;
 
     public void ButtonClicked()
     {
@@ -26,7 +29,18 @@ public class OpenController : MonoBehaviour
 
     public void OpenComplete()
     {
-        Debug.Log("complete");
-        
+        Debug.Log("Load anim complete");
+        if (OpenName == "Mail")
+        {
+            MailApp.SetActive(true);
+        }
+        else if (OpenName == "MRShady")
+        {
+            MRShadyApp.SetActive(true);
+        }
+        else if (OpenName == "Settings")
+        {
+            SettingsApp.SetActive(true);
+        }
     }
 }

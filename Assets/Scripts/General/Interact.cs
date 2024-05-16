@@ -29,7 +29,7 @@ public class Interact : MonoBehaviour
                 ComputorScreen.SetActive(true);
                 Cursor.lockState = CursorLockMode.Confined;
                 Movement = GetComponent<PlayerMovement>();
-                Movement.enabled = !Movement.enabled;
+                Movement.enabled = Movement.enabled = false;
             }
         }
 
@@ -37,7 +37,7 @@ public class Interact : MonoBehaviour
         {
             computor = false;
             Cursor.lockState = CursorLockMode.Locked;
-            Movement.enabled = Movement.enabled;
+            Movement.enabled = Movement.enabled = true;
         }
     }
 }
