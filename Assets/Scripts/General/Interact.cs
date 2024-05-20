@@ -13,8 +13,7 @@ public class Interact : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
+        Movement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -28,8 +27,7 @@ public class Interact : MonoBehaviour
                 computor = true;
                 ComputorScreen.SetActive(true);
                 Cursor.lockState = CursorLockMode.Confined;
-                Movement = GetComponent<PlayerMovement>();
-                Movement.enabled = Movement.enabled = false;
+                Movement.CanMove = false;
             }
         }
 
@@ -37,7 +35,7 @@ public class Interact : MonoBehaviour
         {
             computor = false;
             Cursor.lockState = CursorLockMode.Locked;
-            Movement.enabled = Movement.enabled = true;
+            Movement.CanMove = true;
         }
     }
 }

@@ -60,6 +60,11 @@ public class EnemyCombat : MonoBehaviour
         UpdateStamina();
 
         React();
+
+        if (isDead)
+        {
+            Death();
+        }
         
     }
 
@@ -268,6 +273,11 @@ public class EnemyCombat : MonoBehaviour
         canAttack = true;
         // Reset enemy ui
         uiManager.ResetEnemyAim();
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
     }
 
 }

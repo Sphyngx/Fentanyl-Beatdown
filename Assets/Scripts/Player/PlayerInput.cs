@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour
         // Check all mouse stuff using a function
         UpdateMouse();
 
-        if (Input.GetKeyDown(KeyCode.E)) // Just debug
+        if (Input.GetKeyDown(KeyCode.P)) // Just debug
         {
             // Log
             Debug.Log("State: " + currentState);
@@ -71,6 +71,11 @@ public class PlayerInput : MonoBehaviour
             {
                 uiManager.SetBlockMiddle();
             }
+        }
+        //if player presses "E" (Kick)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            playerCombat.Kick();
         }
     }
     

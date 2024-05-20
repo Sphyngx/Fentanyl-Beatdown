@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool sprint = false;
     public CharacterController Controller;
     public bool CombatSpeed = false;
+    public bool CanMove = true;
     void Start()
     {
         
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+        if (!CanMove)
+        return; 
         if (Input.GetKey(KeyCode.LeftShift) && !CombatSpeed)
         {
             sprint = true;

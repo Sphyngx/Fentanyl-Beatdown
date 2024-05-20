@@ -71,6 +71,9 @@ public class PlayerCombat : MonoBehaviour
     public bool canBlock;
     public bool isBlocking;
 
+    [Header("Kick Variables")]
+    public bool CanKick;
+    public bool IsKicking;
 
     // Start is called before the first frame update
     void Start()
@@ -129,7 +132,9 @@ public class PlayerCombat : MonoBehaviour
         UpdateStamina();
 
         // Update the player's current state
-        currentState = playerInput.currentState.ToString();        
+        currentState = playerInput.currentState.ToString();     
+        
+        
     }
     bool IsEnemyInFieldOfView(Transform enemyTransform)
     {
@@ -291,6 +296,11 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = false;
         // Set can attack to true
         canAttack = true;
+    }
+
+    public void Kick()
+    {
+
     }
 
     // Attack phase:
