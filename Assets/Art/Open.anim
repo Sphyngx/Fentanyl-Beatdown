@@ -80,7 +80,6 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-<<<<<<< HEAD
   m_Events:
   - time: 0.33333334
     functionName: OpenComplete
@@ -89,6 +88,3 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-=======
-  m_Events: []
->>>>>>> parent of 01c6a40 (menu v2)

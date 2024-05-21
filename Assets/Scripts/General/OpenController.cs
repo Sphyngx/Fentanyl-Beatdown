@@ -5,17 +5,11 @@ using UnityEngine;
 public class OpenController : MonoBehaviour
 {
     public GameObject OpenGif;
-<<<<<<< HEAD
     public GameObject ComputorScreen;
     public string OpenName = string.Empty;
     public GameObject MailApp;
     public GameObject MRShadyApp;
     public GameObject SettingsApp;
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> parent of 01c6a40 (menu v2)
->>>>>>> Stashed changes
 
     public void ButtonClicked()
     {
@@ -24,7 +18,6 @@ public class OpenController : MonoBehaviour
             OpenGif.SetActive(true);
         }
     }
-<<<<<<< HEAD
 
     public void CloseComputorClicked()
     {
@@ -47,6 +40,4 @@ public class OpenController : MonoBehaviour
             SettingsApp.SetActive(true);
         }
     }
-=======
->>>>>>> parent of 01c6a40 (menu v2)
 }
