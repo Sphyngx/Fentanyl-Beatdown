@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class OpenController : MonoBehaviour
+public class ButtonController : MonoBehaviour
 {
     public GameObject OpenGif;
     public GameObject ComputorScreen;
@@ -16,6 +18,7 @@ public class OpenController : MonoBehaviour
         if (!OpenGif.activeInHierarchy)
         {
             OpenGif.SetActive(true);
+            OpenName = EventSystem.current.currentSelectedGameObject.name;
         }
     }
 
@@ -39,5 +42,10 @@ public class OpenController : MonoBehaviour
         {
             SettingsApp.SetActive(true);
         }
+    }
+
+    public void MailClose()
+    {
+        MailApp.SetActive(false);
     }
 }

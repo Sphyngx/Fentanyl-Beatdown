@@ -9,6 +9,9 @@ TagManager:
   - Floor
   - UIManager
   - Computor
+  - Aplication
+  - Movable
+  - Destructable
   layers:
   - Default
   - TransparentFX

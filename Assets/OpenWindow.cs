@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class OpenWindow : MonoBehaviour
 {
-    public OpenController openController;
+    public ButtonController buttonController;
     public void OpenComplete()
     {
         gameObject.SetActive(false);
-        openController.OpenComplete();
+        buttonController.OpenComplete();
     }
 }

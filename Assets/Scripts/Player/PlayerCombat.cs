@@ -300,9 +300,62 @@ public class PlayerCombat : MonoBehaviour
 
     public void Kick()
     {
+        if (isAttacking)
+        {
+            Debug.Log("cant kick: isAttacking");
+            return;
+        }
+        if (isBlocking)
+        {
+            Debug.Log("cant kick: isBlocking");
+            return;
+        }
+        if (IsKicking)
+        {
+            Debug.Log("cant kick: IsKicking");
+            return;
+        }
+        if (!combatMode)
+        {
+            Debug.Log("non combat kick");
+            NonCombatKick();
+        }
+        if (combatMode)
+        {
+            Debug.Log("combat kick");
+            CombatKick();
+        }
+    }
+    public void NonCombatKick()
+    {
+        Vector3 spherePos = new Vector3(playerEyes.transform.position.x, playerEyes.transform.position.y - 1, playerEyes.transform.position.z) + playerEyes.transform.forward;
+        Collider[] hitColliders = Physics.OverlapSphere(spherePos, 0.5f);
+        if (hitColliders.Length > 0)
+        {
+            foreach (Collider collider in hitColliders)
+            {
+                Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
+                Debug.Log(collider.name);
+                if (rb == null)
+                {
+                    Debug.Log("Object does not have RigidBody");
+                    continue;
+                }
+                if (rb != null && collider.CompareTag("Movable"))
+                {
+                    rb.AddForce(playerEyes.forward * 10, ForceMode.Impulse);
+                }
+                if (rb != null && collider.CompareTag("Destructable"))
+                {
+                    Destroy(collider.gameObject);
+                }
+            }
+        }
+    }
+    public void CombatKick()
+    {
 
     }
-
     // Attack phase:
     // 1. Check if player is in combat mode
     // 2. Check if player can attack
