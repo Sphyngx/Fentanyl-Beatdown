@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 898902085677140719}
   - component: {fileID: 1108422780078596138}
   - component: {fileID: 5424349217694753634}
+  - component: {fileID: 792978797871136708}
   m_Layer: 0
   m_Name: EnemyAI
   m_TagString: Untagged
@@ -147,3 +148,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4012af0e97ac0bb40b25f4d645b80814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &792978797871136708
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051644229050587321}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0

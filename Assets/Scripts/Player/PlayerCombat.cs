@@ -354,7 +354,25 @@ public class PlayerCombat : MonoBehaviour
     }
     public void CombatKick()
     {
-
+        Vector3 spherePos = new Vector3(playerEyes.transform.position.x, playerEyes.transform.position.y - 1, playerEyes.transform.position.z) + playerEyes.transform.forward;
+        Collider[] hitColliders = Physics.OverlapSphere(spherePos, 0.5f);
+        if (hitColliders.Length > 0)
+        {
+            foreach (Collider collider in hitColliders)
+            {
+                Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
+                Debug.Log(collider.name);
+                if (rb == null)
+                {
+                    Debug.Log("Object does not have RigidBody");
+                    continue;
+                }
+                if (rb != null && collider.CompareTag("Enemy"))
+                {
+                    rb.AddForce(playerEyes.forward * 10, ForceMode.Impulse);
+                }
+            }
+        }
     }
     // Attack phase:
     // 1. Check if player is in combat mode
