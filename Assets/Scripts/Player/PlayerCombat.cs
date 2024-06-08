@@ -56,6 +56,7 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Current State")]
     public string currentState;
+    public bool stunned = false;
 
     [Header("Attack Variables")]
     public bool canAttack;
